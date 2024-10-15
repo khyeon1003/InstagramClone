@@ -16,7 +16,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/api/user/**");
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/api/post/**");
     }
-    //인터셉터 등록 -> api/user라는 url요청에 jwt를 헤더에 붙여서 보낸다
+    //인터셉터 등록 -> api/psot라는 url요청에 jwt를 헤더에 붙여서 보낸다
+    //user요청에는 붙일 필요가 없다
 }
