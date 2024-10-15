@@ -8,6 +8,7 @@ import com.example.Instargram.global.service.AuthService;
 import com.example.Instargram.global.service.ResponseService;
 import com.example.Instargram.user.dto.UserJoinRequest;
 import com.example.Instargram.user.entity.User;
+import com.example.Instargram.user.mapper.UserMapper;
 import com.example.Instargram.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,7 @@ public class UserService {
             throw new CustomException(ErrorCode.USER_ALREADY_EXIST);
             //에러 던질때 throw로 새로운 에러 던진다
         }
-        User newUser= User.builder()
-                .email(request.email())
-                .password(request.password())
-                .phoneNum(request.phoneNum())
-                .build();
+        User newUser= UserMapper.from(request);
         //레포에 저장되면서 유저식별자 id가 정의돼서 온다
         newUser=userRepository.save(newUser);
         //jwt 토큰 생성
