@@ -1,7 +1,9 @@
 package com.example.Instargram.global.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
+@Getter
 public class ErrorResponse <T>{
 
     @Schema(description = "성공 여부", example = "false")
@@ -23,9 +25,9 @@ public class ErrorResponse <T>{
     }
 
     public static <T> ErrorResponse<T> of(int code, String msg) {
-        return new ErrorResponse(code, msg,null );
+        return new ErrorResponse<>(code, msg,null );
     }
     public static <T> ErrorResponse<T> of(int code, String msg, T result) {
-        return new ErrorResponse(code, msg, result);
+        return new ErrorResponse<>(code, msg, result);
     }
 }

@@ -2,7 +2,9 @@ package com.example.Instargram.global.dto;
 
 import com.example.Instargram.global.dto.result.ResponseState;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
+@Getter
 public class SuccessResponse<T> {
 
     @Schema(description = "성공 여부",example = "true")
