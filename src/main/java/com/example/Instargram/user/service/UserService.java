@@ -7,10 +7,12 @@ import com.example.Instargram.global.exception.ErrorCode;
 import com.example.Instargram.global.service.AuthService;
 import com.example.Instargram.global.service.ResponseService;
 import com.example.Instargram.user.dto.UserJoinRequest;
+import com.example.Instargram.user.dto.UserLoginRequest;
 import com.example.Instargram.user.entity.User;
 import com.example.Instargram.user.mapper.UserMapper;
 //import com.example.Instargram.user.repository.UserMemoryRepository;
 import com.example.Instargram.user.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,17 @@ public class UserService {
         JwtTokenSet jwtTokenSet=authService.generateToken(newUser.getId());
         return ResponseService.getSingleResult(jwtTokenSet);
     }
+
     //로그인 과정
     //이메일 또는 id로 멤버찾고 password체크후 맞으면 토큰 던지기
     //토큰을 받으면 다른 페이지 접근 권한을 줌
+    public SingleResult<JwtTokenSet> login(@Valid UserLoginRequest request) {
+        //아이디로 조회해서 객체 가져오기
+        User user=userRepository.findByEmail(request.email()).orElseThrow(()->new CustomException(ErrorCode.USER_NOT_EXIST));
+        if(!user.getPassword().equals(request.password())){
+            throw new CustomException(ErrorCode.USER_WRONG_PASSWORD);
+        }
+        JwtTokenSet jwtTokenSet=authService.generateToken(user.getId());
+        return ResponseService.getSingleResult(jwtTokenSet);
+    }
 }

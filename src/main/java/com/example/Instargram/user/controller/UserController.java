@@ -4,6 +4,7 @@ import com.example.Instargram.global.dto.SuccessResponse;
 import com.example.Instargram.global.dto.result.JwtTokenSet;
 import com.example.Instargram.global.dto.result.SingleResult;
 import com.example.Instargram.user.dto.UserJoinRequest;
+import com.example.Instargram.user.dto.UserLoginRequest;
 import com.example.Instargram.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +36,12 @@ public class UserController {
         SingleResult<JwtTokenSet> result=userService.join(request);
         return SuccessResponse.ok(result);
         //post 요청에서는 @RequsetBody로 HTTP요청을 자바 객체로 변환하기
+    }
+    @PostMapping("/login")
+    @Operation(summary = "로그인")
+    public SuccessResponse<SingleResult<JwtTokenSet>> login(@Valid @RequestBody UserLoginRequest request){
+        SingleResult<JwtTokenSet> result=userService.login(request);
+        return SuccessResponse.ok(result);
     }
 
 
