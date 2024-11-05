@@ -9,6 +9,7 @@ import com.example.Instargram.global.service.ResponseService;
 import com.example.Instargram.user.dto.UserJoinRequest;
 import com.example.Instargram.user.entity.User;
 import com.example.Instargram.user.mapper.UserMapper;
+//import com.example.Instargram.user.repository.UserMemoryRepository;
 import com.example.Instargram.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,13 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    //private final UserMemoryRepository userRepository;
     private final AuthService authService;
     //회원가입 과정
     //기존에 존재하는 회원인지 체크-> 회원 객체 생성-> 레포에 저장(후 다시 객체 리턴 이때 유저 식별자 id가 딸려온다)-> 토큰 생성-> 리턴
     public SingleResult<JwtTokenSet> join(UserJoinRequest request) {
         //존재 확인
-        if(userRepository.findByEmail(request.email())){
+        if(!userRepository.findByEmail(request.email()).isEmpty()){
             throw new CustomException(ErrorCode.USER_ALREADY_EXIST);
             //에러 던질때 throw로 새로운 에러 던진다
         }

@@ -10,35 +10,37 @@ import java.util.Date;
 @Data
 @Entity
 @NoArgsConstructor
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column
-    String email;
+    private String email;
     @Column
-    String password;
+    private String password;
     @Column
-    String phoneNum;
+    private String phoneNum;
     @Column
-    Boolean gender;
+    private Boolean gender;
     @Column
-    Date birth;
+    private Date birth;
     @Column
-    String name;
+    private String name;
     @Column
-    String nickname;
+    private String nickname;
     @Column
-    String webSite;
+    private String webSite;
     @Column
-    String introduce;
+    private String introduce;
     @Column
-    String imageUrl;
+    private String imageUrl;
 
 
     @Builder
-    public User(String email, String password, String phoneNum, Boolean gender, Date birth, String name, String nickname, String webSite, String introduce, String imageUrl) {
+    public User(Long id, String email, String password, String phoneNum, Boolean gender, Date birth, String name, String nickname, String webSite, String introduce, String imageUrl) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.phoneNum = phoneNum;
